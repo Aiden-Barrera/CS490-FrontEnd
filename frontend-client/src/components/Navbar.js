@@ -14,7 +14,9 @@ const Navbar = () => (
       <Menu.Item key="2">
         <Link to="/films">Films</Link>
       </Menu.Item>
-      <Menu.Item key="3">Customer</Menu.Item>
+      <Menu.Item key="3">
+        <Link to="/customer">Customer</Link>
+      </Menu.Item>
     </Menu>
   </Header>
 );
