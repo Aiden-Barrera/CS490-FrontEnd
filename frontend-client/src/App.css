@@ -1,0 +1,28 @@
+.ant-layout-header {
+  background-color: #1DA57A !important; /* Green background for the navbar */
+}
+
+/* Menu background color */
+.ant-menu {
+  background-color: #1DA57A !important; /* Green background for the menu */
+}
+
+/* Menu item text color */
+.ant-menu-item {
+  color: white !important; /* White text color */
+}
+
+/* Menu item hover color */
+.ant-menu-item:hover {
+  background-color: #1890ff !important; /* Light blue hover color */
+}
+
+/* Active menu item color */
+.ant-menu-item-active {
+   background-color: #1890ff !important; /* Light blue active item color */
+}
+ 
+.card-hover:hover{
+  transform: scale(1.05) !important;
+  box-shadow: 0 7px 13px black !important;
+}
