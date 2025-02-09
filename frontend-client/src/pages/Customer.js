@@ -1,9 +1,10 @@
-import React from "react";  
+import React from "react"; 
+import UserTable from "../components/UserTable.js";
 
 const Customer = () => {
   
   return (
-    <h1>This is Customer Page</h1>
+    <UserTable/>
   )
 }
 
