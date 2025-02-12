@@ -69,6 +69,9 @@ const FilmTable = () => {
     setFilteredInfo(filteredUserInfo)
   }, [searchTerm, selectedFilterOption, filmInfo])
 
+  const handleRowClick = (record) => {
+    console.log(`Row Clicked: ${record.title}`)
+  }
 
   return (
     <div style={{ marginTop: "10px"}}> 
@@ -92,7 +95,11 @@ const FilmTable = () => {
             />
             <Search placeholder="Input search text" value={searchTerm} onChange={handleSearch} style={{ width: 200 }} />
           </Flex>
-        )} 
+        )} onRow={(record, rowIndex) => {
+            return {
+              onClick: () => handleRowClick(record)
+            }
+        }}
       />
     
     </div>
