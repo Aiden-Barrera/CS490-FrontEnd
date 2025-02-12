@@ -24,7 +24,7 @@ const CModal = ({ info, isFilm, open, handleClose }) => {
   }, [info])
   
   return (
-    <Modal title={isFilm ? `${selectedInfo?.[0]?.title}`: `${info?.first_name}'s Top Films`} open={open} footer={null} onCancel={handleClose} centered> 
+    <Modal title={isFilm ? `${selectedInfo?.[0]?.title}`: `${info?.first_name} ${info?.last_name}'s Top Films`} open={open} footer={null} onCancel={handleClose} centered> 
       <Paragraph>{isFilm ? `Description: ${selectedInfo?.[0]?.description}` : `${selectedInfo?.[0]?.title}: ${selectedInfo?.[0]?.rental_count} Rented`}</Paragraph>
       <Paragraph>{isFilm ? `Released: ${selectedInfo?.[0]?.release_year}` : `${selectedInfo?.[1]?.title}: ${selectedInfo?.[1]?.rental_count} Rented`}</Paragraph>
       <Paragraph>{isFilm ? `Genre: ${selectedInfo?.[0]?.name}` : `${selectedInfo?.[2]?.title}: ${selectedInfo?.[2]?.rental_count} Rented`}</Paragraph>
