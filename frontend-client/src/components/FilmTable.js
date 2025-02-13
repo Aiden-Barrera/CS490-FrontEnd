@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios";
 import { Table, Select, Input, Flex } from 'antd'
+import FModal from "./FModal.js";
 const { Search } = Input
 
 const FilmTable = () => {
@@ -8,8 +9,19 @@ const FilmTable = () => {
   const [selectedFilterOption, setSelectedFilterOption] = useState('title')
   const [searchTerm, setSearchTerm] = useState('')
   const [filteredInfo, setFilteredInfo] = useState('')
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [data, setData] = useState(null)
 
+  const showModal = (row) => {
+    setData(row)
+    setIsModalOpen(true)
+  }
 
+  const handleClose = () => {
+    setIsModalOpen(false)
+    setData(null)
+  }
+  
   useEffect(() => {
     axios.get('http://localhost:3001/movies/all')
       .then(response => { setFilmInfo(response.data) })
@@ -70,7 +82,7 @@ const FilmTable = () => {
   }, [searchTerm, selectedFilterOption, filmInfo])
 
   const handleRowClick = (record) => {
-    console.log(`Row Clicked: ${record.title}`)
+    showModal(record)
   }
 
   return (
@@ -101,6 +113,7 @@ const FilmTable = () => {
             }
         }}
       />
+      <FModal row={data} open={isModalOpen} handleClose={handleClose} />
     
     </div>
   )
