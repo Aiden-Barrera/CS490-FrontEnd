@@ -1,0 +1,16 @@
+/* Table Header */
+.custom-table .ant-table-thead > tr > th {
+  background-color: #373b41 !important; /* Blue Header */
+  color: white;
+}
+
+.custom-table .ant-table-footer {
+  background-color: #373b41 !important;
+  color: white;
+}
+
+/* Row Text */
+.custom-row td {
+  font-size: 14px;
+  text-align: center;
+}

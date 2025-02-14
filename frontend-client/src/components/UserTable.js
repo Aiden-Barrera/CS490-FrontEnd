@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Table, Select, Input, Flex } from 'antd'
 import AddCButton from "./AddCButton.js";
+import './styleTable.css'
 const { Search } = Input
 
 const UserTable = () => {
@@ -24,7 +25,7 @@ const UserTable = () => {
     {
       title: "Customer ID",
       dataIndex: "customer_id",
-      key: "customer_id",
+    key: "customer_id",
       sorter: (a,b) => a.customer_id - b.customer_id
     },
     {
@@ -41,7 +42,7 @@ const UserTable = () => {
       title: "Email",
       dataIndex: "email",
       key: "email"
-    }
+  }
   ]
 
   const handleSearch = (e) => {
@@ -65,12 +66,16 @@ const UserTable = () => {
     setFilteredInfo(filteredUserInfo)
   }, [searchTerm, selectedFilterOption, userInfo])
 
+  const handleRowClicked = (row) =>{
+    console.log(row)
+  }
+
   return (
     <div style={{ marginTop: "10px" }}>
-      <Table columns={columns} dataSource={filteredInfo} footer={() => (
+      <Table columns={columns} dataSource={filteredInfo} className="custom-table" footer={() => (
         <Flex gap="10px"> 
           <Select showSearch placeholder="Select filter choice" optionFilterProp="label" value={selectedFilterOption} onChange={handleSelectFilter} style={{ width: 200 }}
-            options={[
+      options={[
               {
                 value: "customer_id",
                 label: "Customer ID"
@@ -88,7 +93,11 @@ const UserTable = () => {
           <Search placeholder="Input search text" value={searchTerm} onChange={handleSearch} style={{ width: 200 }} />
           <AddCButton/>
         </Flex>
-       )} 
+       )} onRow={(record, rowIndex) => {
+          return {
+            onClick: () => handleRowClicked(record)  
+          } 
+       }} 
       />
     </div>
   )

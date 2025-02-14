@@ -47,15 +47,15 @@ const Home = () => {
     <>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", margin: "50px"}}> 
         <Flex justify="center" style={{ marginBottom: "20px" }}> 
-          <Title level={1}>Top 5 Movies</Title>
+          <Title level={1} style={{color: "#373b41"}}>Top 5 Movies</Title>
         </Flex>
         <Flex wrap gap="50px" justify="center" style={{ width: "990px"}}> 
           {topFilms.map((item) => (
             <Card className="card-hover" hoverable bordered={false} size="small" style={{ width: "220px", boxShadow: "0 2px 5px black", textAlign: "center", margin: "10px",
               transition: "transform 0.3s ease, box-shadow 0.3s ease"}}
               onClick={() => {showModal(item); setIsFilm(true)}}> 
-              <Title level={3}>{item.title}</Title>
-              <Paragraph>Rented: {item.rented}</Paragraph>
+              <Title level={3} style={{color: "#373b41"}}>{item.title}</Title>
+              <Paragraph style={{color: "#373b41"}}>Rented: {item.rented}</Paragraph>
             </Card>
           ))}
         </Flex>
@@ -63,15 +63,15 @@ const Home = () => {
       <Divider />
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", margin: "50px"}}>
         <Flex justify="center" style={{ marginBottom: "20px" }}> 
-          <Title level={1}>Top 5 Actors</Title>
+          <Title level={1} style={{color: "#373b41"}}>Top 5 Actors</Title>
         </Flex>
         <Flex wrap gap="50px" justify="center" style={{ width: "990px" }}>
           {topActors.map((item) => (
             <Card className="card-hover" hoverable bordered={false} size="small" style={{ width: "220px", boxShadow: "0 2px 5px black", textAlign: "center", margin: "10px", 
               transition: "transform 0.3s ease, box-shadow 0.3s ease"}}
               onClick={() => {showModal(item); setIsFilm(false)}}>
-              <Title level={3}>{item.first_name} {item.last_name}</Title>
-              <Paragraph>Movies: {item.movies}</Paragraph>
+              <Title level={3} style={{color: "#373b41"}}>{item.first_name} {item.last_name}</Title>
+              <Paragraph style={{color: "#373b41"}}>Movies: {item.movies}</Paragraph>
             </Card>
           ))}
         </Flex>

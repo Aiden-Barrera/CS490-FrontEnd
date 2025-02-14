@@ -1,10 +1,14 @@
+body{
+  background-color: #fcf0e0;
+}
+
 .ant-layout-header {
-  background-color: #1DA57A !important; /* Green background for the navbar */
+  background-color: #33595e !important; /* Green background for the navbar */
 }
 
 /* Menu background color */
 .ant-menu {
-  background-color: #1DA57A !important; /* Green background for the menu */
+  background-color: #33595e !important; /* Green background for the menu */
 }
 
 /* Menu item text color */
@@ -14,15 +18,32 @@
 
 /* Menu item hover color */
 .ant-menu-item:hover {
-  background-color: #1890ff !important; /* Light blue hover color */
+  background-color: #373b41 !important; /* Light blue hover color */
 }
 
 /* Active menu item color */
 .ant-menu-item-active {
-   background-color: #1890ff !important; /* Light blue active item color */
+   background-color: #373b41 !important; /* Light blue active item color */
 }
- 
+
+.ant-menu-item-selected {
+  background-color: #373b41 !important; /* Desired active item color */
+  color: white !important; 
+}
+
+.card-hover{
+  background-color: #cfc4c2;
+}
+
 .card-hover:hover{
   transform: scale(1.05) !important;
   box-shadow: 0 7px 13px black !important;
+}
+
+.style-modal .ant-modal-content {
+  background-color: #cfc4c2;
+}
+
+.style-modal .ant-modal-header {
+  background-color: #cfc4c2;
 }

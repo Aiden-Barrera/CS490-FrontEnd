@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios";
 import { Table, Select, Input, Flex } from 'antd'
+import './styleTable.css'
 import FModal from "./FModal.js";
 const { Search } = Input
 
@@ -87,7 +88,7 @@ const FilmTable = () => {
 
   return (
     <div style={{ marginTop: "10px"}}> 
-      <Table columns={columns} dataSource={filteredInfo} footer={() => (
+      <Table columns={columns} dataSource={filteredInfo} className='custom-table' footer={() => (
          <Flex gap="10px"> 
             <Select showSearch placeholder="Select filter choice" optionFilterProp="label" value={selectedFilterOption} onChange={handleSelectFilter} style={{ width: 200 }}
         options={[
