@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
-import { Modal, Typography, Input } from "antd"
+import { Modal, Typography, Input, Divider } from "antd"
 const { Paragraph } = Typography
 const { Search } = Input
 
@@ -53,6 +53,7 @@ const FModal = ({row, open, handleClose }) => {
       <Paragraph>Genre: {selectedInfo?.name}</Paragraph>
       <Paragraph>Special Features: {selectedInfo?.special_features}</Paragraph>
       <Paragraph># of Copies: {typeof noCopies?.copies === 'undefined' ? 0 : noCopies?.copies}</Paragraph>
+      <Divider />
       <Search status={inputWarning} placeholder="Enter Customer ID" value={rentToCustomer} onChange={handleSearch} onSearch={handleCustomerID}/>
     </Modal>
   )

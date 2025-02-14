@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
-import { Modal } from "antd"
-import { TextField, Box, Button }from '@mui/material';
+import { Modal, Flex } from "antd"
+import { TextField, Box, Button, Divider }from '@mui/material';
 import DOMPurify from "dompurify"
 
 const AddCustomer = ({ open, setOpen }) => {
@@ -86,23 +86,27 @@ const AddCustomer = ({ open, setOpen }) => {
 
   return (
     <Modal title="New Customer Info" centered open={isModalOpen} onCancel={handleCancel} footer={null}>
+
       <Box component="form" onSubmit={handleOk} >
-        <TextField required id="outline-required" label='First Name' name="first_name" value={inputData.first_name} onChange={handleInputChangeText}
-         inputProps={{ maxLength: 15, pattern: "[a-zA-z]*"}}/>
-        <TextField required id="outline-required" label='Last Name' name="last_name" value={inputData.last_name} onChange={handleInputChangeText}
-         inputProps={{ maxLength: 15, pattern: "[a-zA-z]*"}}/>
-        <TextField required id="outline-required" label='Email' name="email" value={inputData.email} onChange={handleInputChangeText}
-          inputProps={{ maxLength: 25, type: "email"}}/>
-        <TextField required id="outline-required" label='Phone Number' name="phone" value={inputData.phone} onChange={handleInputChangeNumber}
-         inputProps={{ maxLength: 10, pattern: "[0-9]*"}}/>
-        <TextField required id="outline-required" label='Address' name="address" value={inputData.address} onChange={handleInputChangeText}
-         inputProps={{ maxLength: 30 }}/>
-        <TextField required id="outline-required" label='State' name="district" value={inputData.district} onChange={handleInputChangeText}
-         inputProps={{ maxLength: 20 }}/>
-        <TextField required id="outline-required" label='Zip Code' name="postal_code" value={inputData.postal_code} onChange={handleInputChangeNumber}
-         inputProps={{ maxLength: 5, pattern: "[0-9]*"}}/>
-        <Button varient="contained" color="primary" type="submit">Ok</Button>
-       </Box>
+        <Flex gap="10px" vertical>
+          <TextField required id="outline-required" label='First Name' name="first_name" value={inputData.first_name} onChange={handleInputChangeText}
+           inputProps={{ maxLength: 15, pattern: "[a-zA-z]*"}}/>
+          <TextField required id="outline-required" label='Last Name' name="last_name" value={inputData.last_name} onChange={handleInputChangeText}
+           inputProps={{ maxLength: 15, pattern: "[a-zA-z]*"}}/>
+          <TextField required id="outline-required" label='Email' name="email" value={inputData.email} onChange={handleInputChangeText}
+            inputProps={{ maxLength: 25, type: "email"}}/>
+          <TextField required id="outline-required" label='Phone Number' name="phone" value={inputData.phone} onChange={handleInputChangeNumber}
+           inputProps={{ maxLength: 10, pattern: "[0-9]*"}}/>
+          <TextField required id="outline-required" label='Address' name="address" value={inputData.address} onChange={handleInputChangeText}
+           inputProps={{ maxLength: 30 }}/>
+          <TextField required id="outline-required" label='State' name="district" value={inputData.district} onChange={handleInputChangeText}
+           inputProps={{ maxLength: 20 }}/>
+          <TextField required id="outline-required" label='Zip Code' name="postal_code" value={inputData.postal_code} onChange={handleInputChangeNumber}
+           inputProps={{ maxLength: 5, pattern: "[0-9]*"}}/>
+          <Divider />
+          <Button variant="contained" color="primary" type="submit">Ok</Button>
+        </Flex>
+      </Box>
     </Modal>
   )
 }
