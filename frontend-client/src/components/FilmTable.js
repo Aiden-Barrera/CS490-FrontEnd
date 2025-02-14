@@ -53,7 +53,7 @@ const FilmTable = () => {
       title: "Genre",
       dataIndex: "name",
       key: "name"
-    }
+    } 
   ]
 
   const handleSearch = (e) => {
