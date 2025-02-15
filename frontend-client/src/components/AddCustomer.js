@@ -51,8 +51,10 @@ const AddCustomer = ({ open, setOpen }) => {
 
   const handleInputChangeText = (e) => {
     let sanitizedValue = 0
-    if (e.target.name === 'address' || e.target.name === 'district' || e.target.name === 'email'){
+    if (e.target.name === 'address' || e.target.name === 'email'){
       sanitizedValue = DOMPurify.sanitize(e.target.value)
+    } else if (e.target.name === 'district'){
+      sanitizedValue = DOMPurify.sanitize(e.target.value).replace(/[^a-zA-Z ]/g, '')
     } else {
       sanitizedValue = DOMPurify.sanitize(e.target.value).replace(/[^a-zA-Z]/g, '')
     }
@@ -88,7 +90,7 @@ const AddCustomer = ({ open, setOpen }) => {
     <Modal title="New Customer Info" centered open={isModalOpen} onCancel={handleCancel} footer={null}>
 
       <Box component="form" onSubmit={handleOk} >
-        <Flex gap="10px" vertical>
+        <Flex gap="10px" vertical style={{margin: "0px", marginTop: "20px"}}>
           <TextField required id="outline-required" label='First Name' name="first_name" value={inputData.first_name} onChange={handleInputChangeText}
            inputProps={{ maxLength: 15, pattern: "[a-zA-z]*"}}/>
           <TextField required id="outline-required" label='Last Name' name="last_name" value={inputData.last_name} onChange={handleInputChangeText}

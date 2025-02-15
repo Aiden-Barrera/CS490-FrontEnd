@@ -26,12 +26,12 @@ const CModal = ({ info, isFilm, open, handleClose }) => {
   
   return (
     <Modal title={isFilm ? `${selectedInfo?.[0]?.title}`: `${info?.first_name} ${info?.last_name}'s Top Films`} open={open} footer={null} onCancel={handleClose} centered 
-      className="style-modal"> 
-      <Paragraph>{isFilm ? `Description: ${selectedInfo?.[0]?.description}` : `${selectedInfo?.[0]?.title}: ${selectedInfo?.[0]?.rental_count} Rented`}</Paragraph>
-      <Paragraph>{isFilm ? `Released: ${selectedInfo?.[0]?.release_year}` : `${selectedInfo?.[1]?.title}: ${selectedInfo?.[1]?.rental_count} Rented`}</Paragraph>
-      <Paragraph>{isFilm ? `Genre: ${selectedInfo?.[0]?.name}` : `${selectedInfo?.[2]?.title}: ${selectedInfo?.[2]?.rental_count} Rented`}</Paragraph>
-      <Paragraph>{isFilm ? `Rated: ${selectedInfo?.[0]?.rating}` : `${selectedInfo?.[3]?.title}: ${selectedInfo?.[3]?.rental_count} Rented`}</Paragraph>
-      <Paragraph>{isFilm ? `Rented: ${info?.rented}` : `${selectedInfo?.[4]?.title}: ${selectedInfo?.[4]?.rental_count} Rented`}</Paragraph>
+      className="style-modal">
+      <Paragraph className="cmodal-p">{isFilm ? `Description: ${selectedInfo?.[0]?.description}` : `${selectedInfo?.[0]?.title}: ${selectedInfo?.[0]?.rental_count} Rented`}</Paragraph>
+      <Paragraph className="cmodal-p">{isFilm ? `Released: ${selectedInfo?.[0]?.release_year}` : `${selectedInfo?.[1]?.title}: ${selectedInfo?.[1]?.rental_count} Rented`}</Paragraph>
+      <Paragraph className="cmodal-p">{isFilm ? `Genre: ${selectedInfo?.[0]?.name}` : `${selectedInfo?.[2]?.title}: ${selectedInfo?.[2]?.rental_count} Rented`}</Paragraph>
+      <Paragraph className="cmodal-p">{isFilm ? `Rated: ${selectedInfo?.[0]?.rating}` : `${selectedInfo?.[3]?.title}: ${selectedInfo?.[3]?.rental_count} Rented`}</Paragraph>
+      <Paragraph className="cmodal-p">{isFilm ? `Rented: ${info?.rented}` : `${selectedInfo?.[4]?.title}: ${selectedInfo?.[4]?.rental_count} Rented`}</Paragraph>
     </Modal>
   )
 

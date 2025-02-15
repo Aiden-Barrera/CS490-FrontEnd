@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
-import { Modal, Typography, Input, Divider } from "antd"
+import { Modal, Typography, Input, Divider, Form } from "antd"
 const { Paragraph } = Typography
 const { Search } = Input
 
@@ -8,7 +8,8 @@ const FModal = ({row, open, handleClose }) => {
   const [selectedInfo, setSelectedInfo] = useState(null)
   const [noCopies, setNoCopies] = useState(null)
   const [rentToCustomer, setRentToCustomer] = useState('')
-  const [inputWarning, setInputWarning] = useState('')
+  const [inputWarning, setInputWarning] = useState(false)
+  const [validCustomer, setValidCustomer] = useState(false)
 
   useEffect(() => {
     if (!row) return; 
@@ -21,28 +22,33 @@ const FModal = ({row, open, handleClose }) => {
       setNoCopies(...res2.data)
     }
     fetchInfo()
-    setInputWarning('')
+    setInputWarning(false)
+    setValidCustomer(false)
   }, [row])
 
   const handleSearch = (e) => {
     setRentToCustomer(e.target.value)
-    setInputWarning('')
+    setInputWarning(false)
     console.log(rentToCustomer)
   }
 
   const handleCustomerID = async () => {
     if (typeof noCopies === 'undefined') {
-      setInputWarning('error')
+      setInputWarning(true)
       return
+    }
+    if (rentToCustomer === '') {
+      setValidCustomer(false)
+      return;
     }
 
     const res = await axios.get(`http://localhost:3001/customers/validate/${rentToCustomer}`)
     if (Array.isArray(res.data) && res.data.length === 0){
-      setInputWarning('error')
+      setInputWarning(true)
     } else {
-      console.log("Valid Customer ID") 
+      setValidCustomer(true)
     }
-    console.log(`Searched: ${rentToCustomer}`)
+    setRentToCustomer('')
   }
 
   return (
@@ -54,7 +60,12 @@ const FModal = ({row, open, handleClose }) => {
       <Paragraph>Special Features: {selectedInfo?.special_features}</Paragraph>
       <Paragraph># of Copies: {typeof noCopies?.copies === 'undefined' ? 0 : noCopies?.copies}</Paragraph>
       <Divider />
-      <Search status={inputWarning} placeholder="Enter Customer ID" value={rentToCustomer} onChange={handleSearch} onSearch={handleCustomerID}/>
+      <Form layout="vertical"> 
+        <Form.Item label="Rent Movie" validateStatus={inputWarning ? "error" : validCustomer ? "success" : ""} hasFeedback help={inputWarning ? "Invalid Customer ID" : validCustomer ? 
+          <span style={{color:"green"}}>Movie Rented</span> : ""}>
+          <Search placeholder="Enter Customer ID" value={rentToCustomer} onChange={handleSearch} onSearch={handleCustomerID} enterButton/>
+        </Form.Item>
+      </Form>
     </Modal>
   )
   

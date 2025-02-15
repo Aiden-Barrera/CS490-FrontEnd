@@ -51,11 +51,12 @@ const Home = () => {
         </Flex>
         <Flex wrap gap="50px" justify="center" style={{ width: "990px"}}> 
           {topFilms.map((item) => (
-            <Card className="card-hover" hoverable bordered={false} size="small" style={{ width: "220px", boxShadow: "0 2px 5px black", textAlign: "center", margin: "10px",
+            <Card className="card-hover" cover={<img src="/movie.png" alt="movie icon" />}hoverable bordered={false} size="small" style={{ width: "250px", 
+              boxShadow: "0 2px 5px black", textAlign: "center", margin: "10px", padding: "13px", 
               transition: "transform 0.3s ease, box-shadow 0.3s ease"}}
               onClick={() => {showModal(item); setIsFilm(true)}}> 
-              <Title level={3} style={{color: "#373b41"}}>{item.title}</Title>
-              <Paragraph style={{color: "#373b41"}}>Rented: {item.rented}</Paragraph>
+              <Title level={3} style={{color: "#fbf1dc"}}>{item.title}</Title>
+              <Paragraph style={{color: "#fbf1dc"}}>Rented: {item.rented}</Paragraph>
             </Card>
           ))}
         </Flex>
@@ -67,11 +68,12 @@ const Home = () => {
         </Flex>
         <Flex wrap gap="50px" justify="center" style={{ width: "990px" }}>
           {topActors.map((item) => (
-            <Card className="card-hover" hoverable bordered={false} size="small" style={{ width: "220px", boxShadow: "0 2px 5px black", textAlign: "center", margin: "10px", 
+            <Card className="card-hover" cover={<img src="/drama.png" alt="actor icon" />} hoverable bordered={false} size="small" style={{ width: "250px", 
+              boxShadow: "0 2px 5px black", textAlign: "center", margin: "10px", padding: "13px", 
               transition: "transform 0.3s ease, box-shadow 0.3s ease"}}
               onClick={() => {showModal(item); setIsFilm(false)}}>
-              <Title level={3} style={{color: "#373b41"}}>{item.first_name} {item.last_name}</Title>
-              <Paragraph style={{color: "#373b41"}}>Movies: {item.movies}</Paragraph>
+              <Title level={3} style={{color: "#fbf1dc"}}>{item.first_name} {item.last_name}</Title>
+              <Paragraph style={{color: "#fbf1dc"}}>Movies: {item.movies}</Paragraph>
             </Card>
           ))}
         </Flex>

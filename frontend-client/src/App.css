@@ -32,7 +32,7 @@ body{
 }
 
 .card-hover{
-  background-color: #cfc4c2;
+  background-color: #373b41;
 }
 
 .card-hover:hover{
@@ -41,9 +41,18 @@ body{
 }
 
 .style-modal .ant-modal-content {
-  background-color: #cfc4c2;
+  background-color: #373b41; 
+  color: #fbf1dc !important;
 }
 
 .style-modal .ant-modal-header {
-  background-color: #cfc4c2;
+  background-color: #373b41;
+}
+
+.style-modal .ant-modal-title {
+  color: #fbf1dc;
+}
+
+.style-modal .cmodal-p {
+  color: #fbf1dc !important;
 }
