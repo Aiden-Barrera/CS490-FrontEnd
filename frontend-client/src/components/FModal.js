@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
 import { Modal, Typography, Input, Divider, Form } from "antd"
+import "./styleTable.css"
 const { Paragraph } = Typography
 const { Search } = Input
 
@@ -63,7 +64,7 @@ const FModal = ({row, open, handleClose }) => {
       <Form layout="vertical"> 
         <Form.Item label="Rent Movie" validateStatus={inputWarning ? "error" : validCustomer ? "success" : ""} hasFeedback help={inputWarning ? "Invalid Customer ID" : validCustomer ? 
           <span style={{color:"green"}}>Movie Rented</span> : ""}>
-          <Search placeholder="Enter Customer ID" value={rentToCustomer} onChange={handleSearch} onSearch={handleCustomerID} enterButton/>
+          <Search className="custom-search" placeholder="Enter Customer ID" value={rentToCustomer} onChange={handleSearch} onSearch={handleCustomerID} enterButton/>
         </Form.Item>
       </Form>
     </Modal>

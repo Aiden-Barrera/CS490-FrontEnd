@@ -15,13 +15,13 @@ const Navbar = () => (
     
       <Menu theme="dark" mode="horizontal" style={{ marginLeft: "auto", minWidth: "250px" }}>
         <Menu.Item key="1">
-          <Link to="/" style={{color:"#fbf1dc"}}>Home</Link>
+          <Link to="/" style={{color:"#fbf1dc"}}><strong>Home</strong></Link>
         </Menu.Item>
         <Menu.Item key="2">
-          <Link to="/films" style={{color:"#fbf1dc"}}>Films</Link>
+          <Link to="/films" style={{color:"#fbf1dc"}}><strong>Films</strong></Link>
         </Menu.Item>
         <Menu.Item key="3">
-          <Link to="/customer" style={{color:"#fbf1dc"}}>Customer</Link>
+          <Link to="/customer" style={{color:"#fbf1dc"}}><strong>Customer</strong></Link>
         </Menu.Item>
       </Menu>
     </Header>

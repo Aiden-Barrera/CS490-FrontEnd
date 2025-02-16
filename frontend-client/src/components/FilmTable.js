@@ -33,7 +33,8 @@ const FilmTable = () => {
     {
       title: "Film ID",
       dataIndex: "film_id",
-      key: "film_id"
+      key: "film_id",
+      sorter: (a,b) => a.film_id - b.film_id
     },
     {
       title: "Title",

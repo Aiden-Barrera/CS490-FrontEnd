@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Table, Select, Input, Flex } from 'antd'
 import AddCButton from "./AddCButton.js";
+import CustomerModal from "./CustomerModal.js";
 import './styleTable.css'
 const { Search } = Input
 
@@ -10,6 +11,19 @@ const UserTable = () => {
   const [selectedFilterOption, setSelectedFilterOption] = useState('customer_id')
   const [searchTerm, setSearchTerm] = useState('')
   const [filteredInfo, setFilteredInfo] = useState('')
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [data, setData] = useState(null)
+
+  const showModal = (row) => {
+    setData(row)
+    setIsModalOpen(true)
+  }
+
+  const handleClose = () => {
+    setIsModalOpen(false)
+    setData(null)
+  }
+
 
   useEffect(() => {
     axios.get('http://localhost:3001/customers/all')
@@ -25,7 +39,7 @@ const UserTable = () => {
     {
       title: "Customer ID",
       dataIndex: "customer_id",
-    key: "customer_id",
+      key: "customer_id",
       sorter: (a,b) => a.customer_id - b.customer_id
     },
     {
@@ -67,7 +81,7 @@ const UserTable = () => {
   }, [searchTerm, selectedFilterOption, userInfo])
 
   const handleRowClicked = (row) =>{
-    console.log(row)
+    showModal(row)
   }
 
   return (
@@ -99,6 +113,7 @@ const UserTable = () => {
           } 
        }} 
       />
+      <CustomerModal row={data} open={isModalOpen} handleClose={handleClose} />
     </div>
   )
 }

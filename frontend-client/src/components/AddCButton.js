@@ -24,13 +24,13 @@ const useStyle = createStyles(({ prefixCls, css }) => ({
 
       &:hover::before {
         opacity: 1;
-        transform: scale(1.1);
+        transform: scale(1.02);
         background: linear-gradient(270deg, hsla(216, 8%, 24%, 1) 0%, hsla(187, 30%, 28%, 1) 56%)
       } 
 
       &:active::before {
         opacity: 1;
-        transform: scale(0.9);
+        transform: scale(1);
       }
     }
   `,

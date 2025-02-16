@@ -14,3 +14,14 @@
   font-size: 14px;
   text-align: center;
 }
+
+.custom-search .ant-btn-primary {
+  background-color: #373b41 !important;
+  border-color: #373b41 !important;
+}
+
+.custom-search .ant-btn-primary:hover {
+  background-color: #565a60 !important;
+  border-color: #565a60 !important;
+}
+
