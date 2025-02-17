@@ -1,31 +1,39 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
-import { Modal, Typography, Input, Divider, Form } from "antd"
+import { Modal, Typography, Input, Divider, Form, Button } from "antd"
 import "./styleTable.css"
 const { Paragraph } = Typography
 
 const EditCustomerModal = ({info, open, setOpen}) => {
-  const [editInfo, setEditInfo] = useState(null)
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
- 
-  const handleClose = () => {
-    setOpen(false)
-  }
-  const handleFNameChange = (e) => {
-    setFirstName(e.target.value)
-    console.log(firstName)
-  }
+  const [form] = Form.useForm()
 
-  const handleLNameChange = (e) => {
-    setLastName(e.target.value)
+  useEffect(() => {
+    if (info){
+      form.setFieldsValue({
+        firstname: info?.first_name,
+        lastname: info?.last_name,
+        email: info?.email,
+        phone: info?.phone
+      })  
+    }
+  }, [info, form])
+
+  const handleClose = () => {
+    setOpen(false) 
+  }
+ 
+  const onFinish = (value) => {
+    console.log(value)
   }
 
   return (
     <Modal title="Edit Customer Info" open={open} footer={null} onCancel={handleClose} centered>
-      <Form layout="vertical">
+      <Form form={form} layout="vertical" onFinish={onFinish} initialValues={{
+        firstname: info?.first_name,
+        lastname: info?.last_name,
+        email: info?.email,
+        phone: info?.phone
+      }}>
         <Form.Item label="First Name" name='firstname' rules={[
           {
             required: true,
@@ -36,7 +44,7 @@ const EditCustomerModal = ({info, open, setOpen}) => {
             message: "Numbers Aren't Allowed"
           }
         ]}> 
-          <Input defaultValue={info?.first_name} onChange={handleFNameChange} />
+          <Input key={info?.customer_id}/>
         </Form.Item>
         <Form.Item label="Last Name" name='lastname' rules={[
           {
@@ -48,7 +56,37 @@ const EditCustomerModal = ({info, open, setOpen}) => {
             message: "Numbers Aren't Allowed"
           }
         ]}>
-          <Input defaultValue={info?.last_name} onChange={handleLNameChange} />
+          <Input key={info?.customer_id} />
+        </Form.Item>
+        <Form.Item label="Email" name="email" rules={[
+          {
+            required: true,
+            message: "Input Email"
+          },
+          {
+            type: "email",
+            message: "Invalid Email Format"
+          }
+        ]}>
+          <Input key={info?.customer_id}/>
+        </Form.Item>
+        <Form.Item label="Phone Number" name='phone' rules={[
+          {
+            required: true,
+            message: 'Input Phone Number'
+          }, 
+          {
+            pattern: /^[0-9]+$/,
+            message: "Letter Aren't Allowed"
+          }
+        ]}>
+          <Input key={info?.customer_id}/>
+        </Form.Item>
+        <Divider />
+        <Form.Item label={null}>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
         </Form.Item>
 
       </Form>

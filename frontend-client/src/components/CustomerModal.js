@@ -10,17 +10,14 @@ const CustomerModal = ({row, open, handleClose }) => {
   const [customerInfo, setCustomerInfo] = useState(null)
   const [customerRentHistory, setCustomerRentHistory] = useState(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
-
-  const handleEditClose = () => {
-    setIsModalOpen(false)
-  }
+  const [selectedCustomer, setSelectedCustomer] = useState(null) 
 
   useEffect(() => {
     if (!row) return; 
 
     const fetchInfo = async () => {
       const id = row.customer_id
-  const res1 = await axios.get(`http://localhost:3001/customers/info/${id}`)
+      const res1 = await axios.get(`http://localhost:3001/customers/info/${id}`)
       const res2 = await axios.get(`http://localhost:3001/customers/info/rentHistory/${id}`)
       setCustomerInfo(...res1.data)
       setCustomerRentHistory(res2.data)
