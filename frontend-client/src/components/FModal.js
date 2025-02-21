@@ -23,9 +23,9 @@ const FModal = ({row, open, handleClose }) => {
       setNoCopies(...res2.data)
     }
     fetchInfo()
-    setInputWarning(false)
-    setValidCustomer(false)
-  }, [row])
+    //setInputWarning(false)
+    //setValidCustomer(false)
+  }, [row, validCustomer])
 
   const handleSearch = (e) => {
     setRentToCustomer(e.target.value)
@@ -47,6 +47,7 @@ const FModal = ({row, open, handleClose }) => {
     if (Array.isArray(res.data) && res.data.length === 0){
       setInputWarning(true)
     } else {
+      await axios.get(`http://localhost:3001/customers/rent/${selectedInfo?.film_id}/${rentToCustomer}`)
       setValidCustomer(true)
     }
     setRentToCustomer('')
