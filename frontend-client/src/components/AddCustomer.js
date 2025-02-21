@@ -4,7 +4,7 @@ import { Modal, Flex } from "antd"
 import { TextField, Box, Button, Divider }from '@mui/material';
 import DOMPurify from "dompurify"
 
-const AddCustomer = ({ open, setOpen }) => {
+const AddCustomer = ({ open, setOpen , fetch}) => {
   const [isModalOpen, setIsModalOpen] = useState(open)
   const [postRes, setPostRes] = useState({message:""})
   const [inputData, setInputData] = useState({
@@ -31,6 +31,7 @@ const AddCustomer = ({ open, setOpen }) => {
         }).catch(err => {
           console.log("Error Adding Customer")
         })
+      fetch()
     } else {
       alert("Form is Not Valid!")
     }

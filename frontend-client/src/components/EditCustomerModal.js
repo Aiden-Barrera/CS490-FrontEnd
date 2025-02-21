@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
-import { Modal, Typography, Input, Divider, Form, Button } from "antd"
+import { Modal, Typography, Input, Divider, Form, Button, Flex } from "antd"
 import "./styleTable.css"
 const { Paragraph } = Typography
 
-const EditCustomerModal = ({info, open, setOpen}) => {
+const EditCustomerModal = ({info, open, setOpen, fetch}) => {
   const [form] = Form.useForm()
 
   useEffect(() => {
@@ -13,7 +13,10 @@ const EditCustomerModal = ({info, open, setOpen}) => {
         firstname: info?.first_name,
         lastname: info?.last_name,
         email: info?.email,
-        phone: info?.phone
+        phone: info?.phone,
+        address: info?.address,
+        district: info?.district, 
+        postalcode: info?.postal_code 
       })  
     }
   }, [info, form])
@@ -22,8 +25,15 @@ const EditCustomerModal = ({info, open, setOpen}) => {
     setOpen(false) 
   }
  
-  const onFinish = (value) => {
-    console.log(value)
+  const onFinish = async (value) => {
+    const combinedValue = {
+      ...value,
+      addressId: info?.address_id,
+      customerId: info?.customer_id
+    }
+    await axios.post('http://localhost:3001/customers/info/edit', combinedValue)
+    fetch()
+    setOpen(false)
   }
 
   return (
@@ -32,7 +42,10 @@ const EditCustomerModal = ({info, open, setOpen}) => {
         firstname: info?.first_name,
         lastname: info?.last_name,
         email: info?.email,
-        phone: info?.phone
+        phone: info?.phone,
+        address: info?.address,
+        district: info?.district, 
+        postalcode: info?.postal_code 
       }}>
         <Form.Item label="First Name" name='firstname' rules={[
           {
@@ -82,11 +95,49 @@ const EditCustomerModal = ({info, open, setOpen}) => {
         ]}>
           <Input key={info?.customer_id}/>
         </Form.Item>
+         <Form.Item label="Address" name='address' rules={[
+          {
+            required: true,
+            message: 'Input Address'
+          }, 
+          {
+            pattern: /^[a-zA-Z0-9 ]*$/,
+            message: "Special Characters Aren't Allowed"
+          }
+        ]}>
+          <Input key={info?.customer_id}/>
+        </Form.Item>
+        <Form.Item label="District" name='district' rules={[
+          {
+            required: true,
+            message: 'Input District'
+          }, 
+          {
+            pattern: /^[a-zA-Z ]*$/,
+            message: "Numbers Aren't Allowed"
+          }
+        ]}>
+          <Input key={info?.customer_id}/>
+        </Form.Item>
+        <Form.Item label="Postal Code" name='postalcode' rules={[
+          {
+            required: true,
+            message: 'Input Postal Code'
+          }, 
+          {
+            pattern: /^[0-9]*$/,
+            message: "Letters Aren't Allowed"
+          }
+        ]}>
+          <Input key={info?.customer_id}/>
+        </Form.Item>
         <Divider />
         <Form.Item label={null}>
+          <Flex vertical>
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
+          </Flex>
         </Form.Item>
 
       </Form>

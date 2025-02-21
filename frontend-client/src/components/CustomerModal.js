@@ -1,29 +1,32 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
-import { Modal, Typography, Input, Divider, Form, Table, Button } from "antd"
+import { Modal, Typography, Input, Divider, Form, Table, Button, Flex } from "antd"
 import "./styleTable.css"
 import EditCustomerModal from "./EditCustomerModal.js"
 const { Paragraph } = Typography
 const { Search } = Input
 
-const CustomerModal = ({row, open, handleClose }) => {
+const CustomerModal = ({row, open, handleClose, fetch }) => {
   const [customerInfo, setCustomerInfo] = useState(null)
   const [customerRentHistory, setCustomerRentHistory] = useState(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [selectedCustomer, setSelectedCustomer] = useState(null) 
+  const [inputWarning, setInputWarning] = useState(false)
+  const [validRentID, setValidRentID] = useState(false)
+  const [returnFilm, setReturnFilm] = useState(null)
+
+  const fetchInfo = async () => {
+    const id = row.customer_id
+    const res1 = await axios.get(`http://localhost:3001/customers/info/${id}`)
+    const res2 = await axios.get(`http://localhost:3001/customers/info/rentHistory/${id}`)
+    setCustomerInfo(...res1.data)
+    setCustomerRentHistory(res2.data)
+  }
 
   useEffect(() => {
     if (!row) return; 
 
-    const fetchInfo = async () => {
-      const id = row.customer_id
-      const res1 = await axios.get(`http://localhost:3001/customers/info/${id}`)
-      const res2 = await axios.get(`http://localhost:3001/customers/info/rentHistory/${id}`)
-      setCustomerInfo(...res1.data)
-      setCustomerRentHistory(res2.data)
-    }
     fetchInfo()
-  }, [row])
+  }, [row, validRentID])
 
   const columns = [
     {
@@ -52,6 +55,54 @@ const CustomerModal = ({row, open, handleClose }) => {
     setIsModalOpen(true)
   } 
 
+  const handleSearch = (e) => {
+    setReturnFilm(e.target.value)
+    setInputWarning(false)
+    console.log(returnFilm)
+  }
+
+  const handleReturn = async () => {
+    if (customerRentHistory.length === 0){
+      console.log("No Movies to return")
+      setInputWarning(true)
+      return
+    }
+
+    if (returnFilm === '') {
+      setInputWarning(true)
+      return
+    }
+
+    const res = await axios.get(`http://localhost:3001/movies/rental/validate/${returnFilm}`)
+    if (Array.isArray(res.data) && res.data.length === 0){ 
+      setInputWarning(true)
+    } else {
+      const returned = await axios.post(`http://localhost:3001/customers/return`, {rental_id: returnFilm} )
+      console.log(returned)
+      setValidRentID(true)
+    }
+
+  }
+
+  const handleDeleteButton = () => {
+    Modal.confirm({
+      title: "Confirm Deletion",
+      content: "Are you sure you want to delete? Actions Can't be Undone",
+      okText: "Yes, delete",
+      okType: "danger",
+      okButtonProps: { type: "primary"},
+      cancelText: "Cancel",
+      cancelButtonProps: { type: "default"},
+      onOk: async () => {
+        const deleteInfo = {customerId: customerInfo?.customer_id, addressId: customerInfo?.address_id}
+
+        await axios.post(`http://localhost:3001/customers/info/delete`, deleteInfo)
+        fetch()
+        handleClose()
+      }
+    })
+  } 
+
   return (
     <>
       <Modal title="Customer Info & Rental History" open={open} footer={null} onCancel={handleClose} centered width={900}>
@@ -59,12 +110,23 @@ const CustomerModal = ({row, open, handleClose }) => {
         <Paragraph>Last Name: {customerInfo?.last_name}</Paragraph>
         <Paragraph>Email: {customerInfo?.email}</Paragraph>
         <Paragraph>Phone #: {customerInfo?.phone}</Paragraph>
+        <Paragraph>Address: {customerInfo?.address}</Paragraph>
+        <Paragraph>District: {customerInfo?.district}</Paragraph>
+        <Paragraph>Postal Code: {customerInfo?.postal_code}</Paragraph>
         <Paragraph>Member Since: {customerInfo?.create_date}</Paragraph>
         <Table columns={columns} dataSource={customerRentHistory} className="custom-table" size="small" scroll={{y: 200}}/>
         <Divider />
-        <Button type="primary" onClick={handleButton}>Edit Info</Button>
+        <Form layout="vertical"> 
+          <Form.Item label="Return Movie" validateStatus={inputWarning ? "error" : validRentID ? "success" : ""} hasFeedback help={inputWarning ? "Invalid Rental ID" : validRentID ?                 <span style={{color:"green"}}>Movie Returned</span> : ""}>
+            <Flex gap="10px" align='center' vertical={false}>
+              <Search className="custom-search" placeholder="Enter rental ID" value={returnFilm} onChange={handleSearch} onSearch={handleReturn} enterButton/>
+              <Button type="primary" onClick={handleButton} style={{backgroundColor: "#33595e", borderColor: "#33595e"}}>Edit Info</Button>
+              <Button color="danger" variant="solid" onClick={handleDeleteButton}>Delete Customer</Button>
+            </Flex>
+          </Form.Item>
+        </Form>
       </Modal>
-      <EditCustomerModal info={customerInfo} open={isModalOpen} setOpen={setIsModalOpen} />
+      <EditCustomerModal info={customerInfo} open={isModalOpen} setOpen={setIsModalOpen} fetch={fetchInfo} />
     </>
   )
   

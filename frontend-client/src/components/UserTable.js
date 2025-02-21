@@ -24,8 +24,7 @@ const UserTable = () => {
     setData(null)
   }
 
-
-  useEffect(() => {
+  const fetchData = () => {
     axios.get('http://localhost:3001/customers/all')
       .then(response => {
         setUserInfo(response.data)
@@ -33,6 +32,10 @@ const UserTable = () => {
       .catch(err => {
         console.log("Error")
       })
+  }
+
+  useEffect(() => {
+    fetchData()   
   }, [])
 
   const columns = [
@@ -105,7 +108,7 @@ const UserTable = () => {
             ]}
           />
           <Search placeholder="Input search text" value={searchTerm} onChange={handleSearch} style={{ width: 200 }} />
-          <AddCButton/>
+          <AddCButton fetch={fetchData}/>
         </Flex>
        )} onRow={(record, rowIndex) => {
           return {
@@ -113,7 +116,7 @@ const UserTable = () => {
           } 
        }} 
       />
-      <CustomerModal row={data} open={isModalOpen} handleClose={handleClose} />
+      <CustomerModal row={data} open={isModalOpen} handleClose={handleClose} fetch={fetchData} />
     </div>
   )
 }

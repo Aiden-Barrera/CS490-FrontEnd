@@ -36,7 +36,7 @@ const useStyle = createStyles(({ prefixCls, css }) => ({
   `,
 }));
 
-const AddCButton = () => {
+const AddCButton = ({ fetch }) => {
   const { styles } = useStyle()
   const [open, setOpen] = useState(false)
 
@@ -45,7 +45,7 @@ const AddCButton = () => {
       <Button type="default" size="middle" style={{color: "white"}}icon={<PlusOutlined/>} onClick={() => setOpen(true)} > 
         Add Customer
       </Button>
-      <AddCustomer open={open} setOpen={setOpen} />
+      <AddCustomer open={open} setOpen={setOpen} fetch={fetch} />
     </ConfigProvider>
   )
 }
