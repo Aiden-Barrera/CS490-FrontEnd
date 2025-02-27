@@ -26,7 +26,7 @@ const EditCustomerModal = ({info, open, setOpen, fetch}) => {
   }
  
   const onFinish = async (value) => {
-    const combinedValue = {
+  const combinedValue = {
       ...value,
       addressId: info?.address_id,
       customerId: info?.customer_id

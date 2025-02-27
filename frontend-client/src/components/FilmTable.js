@@ -12,7 +12,6 @@ const FilmTable = () => {
   const [filteredInfo, setFilteredInfo] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [data, setData] = useState(null)
-  const [rentToCustomer, setRentToCustomer] = useState('')
 
   const showModal = (row) => {
     setData(row)
@@ -20,7 +19,6 @@ const FilmTable = () => {
   }
 
   const handleClose = () => {
-    setRentToCustomer('')
     setIsModalOpen(false)
     setData(null)
   }
@@ -117,7 +115,7 @@ const FilmTable = () => {
             }
         }}
       />
-      <FModal row={data} open={isModalOpen} handleClose={handleClose} rentToCustomer={rentToCustomer} setRentToCustomer={setRentToCustomer}/>
+      <FModal row={data} open={isModalOpen} handleClose={handleClose} />
     
     </div>
   )
