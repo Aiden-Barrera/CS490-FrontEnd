@@ -13,6 +13,7 @@ const CustomerModal = ({row, open, handleClose, fetch }) => {
   const [inputWarning, setInputWarning] = useState(false)
   const [validRentID, setValidRentID] = useState(false)
   const [returnFilm, setReturnFilm] = useState(null)
+  const [noRentals, setNoRentals] = useState(false)
 
   const fetchInfo = async () => {
     const id = row.customer_id
@@ -27,6 +28,14 @@ const CustomerModal = ({row, open, handleClose, fetch }) => {
 
     fetchInfo()
   }, [row, validRentID])
+
+  useEffect(() => {
+    if (!open){
+      setReturnFilm('')
+      setNoRentals(false)
+      setInputWarning(false)
+    }
+  }, [open, returnFilm])
 
   const columns = [
     {
@@ -65,6 +74,7 @@ const CustomerModal = ({row, open, handleClose, fetch }) => {
     if (customerRentHistory.length === 0){
       console.log("No Movies to return")
       setInputWarning(true)
+      setNoRentals(true)
       return
     }
 
@@ -117,10 +127,11 @@ const CustomerModal = ({row, open, handleClose, fetch }) => {
         <Table columns={columns} dataSource={customerRentHistory} className="custom-table" size="small" scroll={{y: 200}}/>
         <Divider />
         <Form layout="vertical"> 
-          <Form.Item label="Return Movie" validateStatus={inputWarning ? "error" : validRentID ? "success" : ""} hasFeedback help={inputWarning ? "Invalid Rental ID" : validRentID ?                 <span style={{color:"green"}}>Movie Returned</span> : ""}>
+          <Form.Item label="Return Movie" validateStatus={inputWarning ? "error" : validRentID ? "success" : ""} hasFeedback help={inputWarning ? noRentals ? "No Rentals to Return" :
+            "Invalid Rental ID" : validRentID ? <span style={{color:"green"}}>Movie Returned</span> : ""}>
             <Flex gap="10px" align='center' vertical={false}>
               <Search className="custom-search" placeholder="Enter rental ID" value={returnFilm} onChange={handleSearch} onSearch={handleReturn} enterButton/>
-              <Button type="primary" onClick={handleButton} style={{backgroundColor: "#33595e", borderColor: "#33595e"}}>Edit Info</Button>
+              <Button type="primary" onClick={handleButton} className="custom-button" style={{backgroundColor: "#33595e", borderColor: "#33595e"}}>Edit Info</Button>
               <Button color="danger" variant="solid" onClick={handleDeleteButton}>Delete Customer</Button>
             </Flex>
           </Form.Item>

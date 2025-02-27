@@ -25,3 +25,7 @@
   border-color: #565a60 !important;
 }
 
+.custom-button:hover {
+  background-color: #4A7A80 !important;
+  border-color: #4A7A80 !important;
+} 

@@ -11,6 +11,7 @@ const FModal = ({row, open, handleClose }) => {
   const [rentToCustomer, setRentToCustomer] = useState('')
   const [inputWarning, setInputWarning] = useState(false)
   const [validCustomer, setValidCustomer] = useState(false)
+  const [zeroCopies, setZeroCopies] = useState(false)
 
   useEffect(() => {
     if (!row) return; 
@@ -27,15 +28,25 @@ const FModal = ({row, open, handleClose }) => {
     //setValidCustomer(false)
   }, [row, validCustomer])
 
+  useEffect(() => {
+    if (!open){
+      setRentToCustomer('')
+      setZeroCopies(false)
+      setInputWarning(false)
+    }
+  }, [open, setRentToCustomer])
+
   const handleSearch = (e) => {
     setRentToCustomer(e.target.value)
     setInputWarning(false)
+    setZeroCopies(false)
     console.log(rentToCustomer)
   }
 
   const handleCustomerID = async () => {
     if (typeof noCopies === 'undefined') {
       setInputWarning(true)
+      setZeroCopies(true)
       return
     }
     if (rentToCustomer === '') {
@@ -63,7 +74,7 @@ const FModal = ({row, open, handleClose }) => {
       <Paragraph># of Copies: {typeof noCopies?.copies === 'undefined' ? 0 : noCopies?.copies}</Paragraph>
       <Divider />
       <Form layout="vertical"> 
-        <Form.Item label="Rent Movie" validateStatus={inputWarning ? "error" : validCustomer ? "success" : ""} hasFeedback help={inputWarning ? "Invalid Customer ID" : validCustomer ? 
+        <Form.Item label="Rent Movie" validateStatus={inputWarning ? "error" : validCustomer ? "success" : ""} hasFeedback help={inputWarning ? zeroCopies ? "No Copies to Rent" : "Invalid Customer ID" : validCustomer ? 
           <span style={{color:"green"}}>Movie Rented</span> : ""}>
           <Search className="custom-search" placeholder="Enter Customer ID" value={rentToCustomer} onChange={handleSearch} onSearch={handleCustomerID} enterButton/>
         </Form.Item>
