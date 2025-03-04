@@ -1,5 +1,5 @@
 //import './App.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {Routes, Route} from "react-router-dom";
 import Navbar from './components/Navbar.js'
 import Home from './pages/Home.js'
@@ -7,6 +7,9 @@ import Films from './pages/Films.js'
 import Customer from './pages/Customer.js'
 
 function App() {
+  useEffect(() => {
+    document.title = "Sakila Portal"
+  }, [])
   
   return (
     <div className='App'>
