@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios'
 import './../App.css'
-import { Flex, Card, Typography, Divider } from 'antd'
+import { Flex, Card, Typography } from 'antd'
 import {motion} from "framer-motion"
 import CModal from './../components/CModal.js'
 const { Title, Paragraph } = Typography

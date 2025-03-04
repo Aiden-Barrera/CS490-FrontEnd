@@ -24,8 +24,8 @@ const FModal = ({row, open, handleClose }) => {
       setNoCopies(...res2.data)
     }
     fetchInfo()
-    //setInputWarning(false)
-    //setValidCustomer(false)
+    setInputWarning(false)
+    setValidCustomer(false)
   }, [row, validCustomer])
 
   useEffect(() => {

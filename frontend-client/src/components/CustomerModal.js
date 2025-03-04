@@ -27,6 +27,8 @@ const CustomerModal = ({row, open, handleClose, fetch }) => {
     if (!row) return; 
 
     fetchInfo()
+    setInputWarning(false)
+    setValidRentID(false)
   }, [row, validRentID])
 
   useEffect(() => {
