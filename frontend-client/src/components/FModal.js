@@ -24,8 +24,6 @@ const FModal = ({row, open, handleClose }) => {
       setNoCopies(...res2.data)
     }
     fetchInfo()
-    setInputWarning(false)
-    setValidCustomer(false)
   }, [row, validCustomer])
 
   useEffect(() => {
@@ -33,6 +31,7 @@ const FModal = ({row, open, handleClose }) => {
       setRentToCustomer('')
       setZeroCopies(false)
       setInputWarning(false)
+      setValidCustomer(false)
     }
   }, [open, setRentToCustomer])
 
@@ -40,6 +39,7 @@ const FModal = ({row, open, handleClose }) => {
     setRentToCustomer(e.target.value)
     setInputWarning(false)
     setZeroCopies(false)
+    setValidCustomer(false)
     console.log(rentToCustomer)
   }
 

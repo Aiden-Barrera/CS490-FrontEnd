@@ -27,8 +27,6 @@ const CustomerModal = ({row, open, handleClose, fetch }) => {
     if (!row) return; 
 
     fetchInfo()
-    setInputWarning(false)
-    setValidRentID(false)
   }, [row, validRentID])
 
   useEffect(() => {
@@ -36,8 +34,9 @@ const CustomerModal = ({row, open, handleClose, fetch }) => {
       setReturnFilm('')
       setNoRentals(false)
       setInputWarning(false)
+      setValidRentID(false)
     }
-  }, [open, returnFilm])
+  }, [open, returnFilm, validRentID])
 
   const columns = [
     {
@@ -69,6 +68,7 @@ const CustomerModal = ({row, open, handleClose, fetch }) => {
   const handleSearch = (e) => {
     setReturnFilm(e.target.value)
     setInputWarning(false)
+    setValidRentID(false)
     console.log(returnFilm)
   }
 
@@ -89,9 +89,19 @@ const CustomerModal = ({row, open, handleClose, fetch }) => {
     if (Array.isArray(res.data) && res.data.length === 0){ 
       setInputWarning(true)
     } else {
-      const returned = await axios.post(`http://localhost:3001/customers/return`, {rental_id: returnFilm} )
-      console.log(returned)
-      setValidRentID(true)
+      try {
+        const returned = await axios.post(`http://localhost:3001/customers/return`, {rental_id: returnFilm} )
+        console.log(returned)
+        setValidRentID(true)
+      } catch (error) {
+        if (error.response && error.response.status === 500 && error.response.data.message === "No Copy to Return") {
+          console.log("No copies to return")
+          setInputWarning(true)
+          setNoRentals(true)
+        } else {
+          console.error("An unexpected error occurred:", error)
+        }
+      }
     }
 
   }
@@ -129,7 +139,7 @@ const CustomerModal = ({row, open, handleClose, fetch }) => {
         <Table columns={columns} dataSource={customerRentHistory} className="custom-table" size="small" scroll={{y: 200}}/>
         <Divider />
         <Form layout="vertical"> 
-          <Form.Item label="Return Movie" validateStatus={inputWarning ? "error" : validRentID ? "success" : ""} hasFeedback help={inputWarning ? noRentals ? "No Rentals to Return" :
+          <Form.Item label="Return Movie" validateStatus={inputWarning ? "error" : validRentID ? "success" : ""} hasFeedback help={inputWarning ? noRentals ? "No Rental to Return" :
             "Invalid Rental ID" : validRentID ? <span style={{color:"green"}}>Movie Returned</span> : ""}>
             <Flex gap="10px" align='center' vertical={false}>
               <Search className="custom-search" placeholder="Enter rental ID" value={returnFilm} onChange={handleSearch} onSearch={handleReturn} enterButton/>
